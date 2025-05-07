@@ -18,4 +18,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/niveis', [NivelController::class, 'index']);
+Route::resource('/niveis', NivelController::class);
