@@ -5,7 +5,14 @@
 @section('content')
 <h1>Niveis</h1>
 
-<a href="#" class="btn btn-primary">Adicionar</a>
+<button class="btn btn-primary" onclick="window.location.href='{{route('niveis.create')}}'">Adicionar</button>
+
+@if(session('success'))
+    <div id="alert-pop-up" class="alert alert-success my-3">
+        {{ session('success') }}
+    </div>
+@endif
+
 
 @if($niveis->isNotEmpty())
 <table class="table table-white">
