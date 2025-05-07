@@ -21,6 +21,7 @@
             <th scope="col">ID</th>
             <th scope="col">NOME</th>
             <th scope="col"></th>
+            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
@@ -28,6 +29,14 @@
             <tr>
                 <td scope="col">{{ $nivel->id }}</td>
                 <td scope="col">{{ $nivel->nome }}</td>
+                <td scope="col">
+                    <form 
+                        action="{{ route('niveis.edit', $nivel->id) }}"
+                        method="GET"
+                    >
+                        <button type="submit" class="btn btn-warning text-white">Atualizar</button>
+                    </form>
+                </td>
                 <td scope="col">
                     <form 
                         action="{{ route('niveis.destroy', $nivel->id) }}"

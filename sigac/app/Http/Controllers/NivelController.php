@@ -42,19 +42,28 @@ class NivelController extends Controller
     
     public function edit(string $id)
     {
-        //
+        return view('niveis.edit')->with(['nivel' => Nivel::find($id)]);
     }
     
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate($this->validationRules, $this->customMessages);
+        
+        $nivel = Nivel::find($id);
+
+        if ($nivel) {
+            $nivel->nome = $request->nome;
+
+            $nivel->save();
+            return redirect()->route('niveis.index')->with(['success'=>'Nivel '.$nivel->id.' atualizado com sucesso']);
+        }
     }
     
     public function destroy(string $id)
     {
         $nivel = Nivel::find($id);
 
-        if (isset($nivel)) {
+        if ($nivel) {
             $nivel->delete();
         }
 
