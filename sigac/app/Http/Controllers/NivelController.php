@@ -52,6 +52,12 @@ class NivelController extends Controller
     
     public function destroy(string $id)
     {
-        //
+        $nivel = Nivel::find($id);
+
+        if (isset($nivel)) {
+            $nivel->delete();
+        }
+
+        return redirect()->route('niveis.index')->with(['success'=>'Nivel '.$nivel->nome.' deletado com sucesso']);
     }
 }

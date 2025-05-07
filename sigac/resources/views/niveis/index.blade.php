@@ -28,6 +28,17 @@
             <tr>
                 <td scope="col">{{ $nivel->id }}</td>
                 <td scope="col">{{ $nivel->nome }}</td>
+                <td scope="col">
+                    <form 
+                        action="{{ route('niveis.destroy', $nivel->id) }}"
+                        method="POST"
+                        onsubmit="return confirm('Tem certeza que deseja excluir este nível?');"
+                    >
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Excluir</button>
+                    </form>
+                </td>
             </tr>
         @endforeach
     </tbody>
