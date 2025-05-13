@@ -13,13 +13,13 @@
     </div>
 @endif
 
-
 @if($niveis->isNotEmpty())
 <table class="table table-white">
     <thead>
         <tr>
             <th scope="col">ID</th>
             <th scope="col">NOME</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
