@@ -68,6 +68,12 @@ class CursoController extends Controller
 
     public function destroy(string $id)
     {
-        //
+        $curso = Curso::find($id);
+
+        if ($curso) {
+            $curso->delete();
+        }
+
+        return redirect()->route('cursos.index')->with(['success'=>'Curso '.$curso->nome.' deletado com sucesso']);
     }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Níveis')
+@section('title', 'Cursos')
 
 @section('content')
 <h1>Cursos</h1>
@@ -29,6 +29,17 @@
                 <td scope="col">{{ $curso->id }}</td>
                 <td scope="col">{{ $curso->nome }}</td>
                 <td scope="col">{{ $curso->total_horas }}</td>
+                <td>
+                    <form
+                        action="{{ route('cursos.destroy', $curso->id) }}"
+                        method="POST"
+                        onsubmit="return confirm('Tem certeza que deseja excluir este curso?');"
+                    >
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Excluir</button>
+                    </form>
+                </td>
             </tr>
         @endforeach
     </tbody>
