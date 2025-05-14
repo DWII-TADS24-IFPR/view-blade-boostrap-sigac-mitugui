@@ -73,6 +73,12 @@ class DeclaracaoController extends Controller
 
     public function destroy(string $id)
     {
-        //
+        $declaracao = Declaracao::find($id);
+
+        if ($declaracao) {
+            $declaracao->delete();
+        }
+
+        return redirect()->route('declaracoes.index')->with(['success'=>'Declaração '.$declaracao->id.' deletada com sucesso']);
     }
 }

@@ -21,6 +21,7 @@
             <th scope="col">HASH</th>
             <th scope="col">DATA</th>
             <th scope="col">ALUNO</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -30,6 +31,17 @@
                 <td scope="col">{{ $declaracao->hash }}</td>
                 <td scope="col">{{ $declaracao->data }}</td>
                 <td scope="col">{{ $declaracao->aluno->nome }}</td>
+                <td>
+                    <form
+                        action="{{ route('declaracoes.destroy', $declaracao->id) }}"
+                        method="POST"
+                        onsubmit="return confirm('Tem certeza que deseja excluir esta declaração?');"
+                    >
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Excluir</button>
+                    </form>
+                </td>
             </tr>
         @endforeach
     </tbody>
