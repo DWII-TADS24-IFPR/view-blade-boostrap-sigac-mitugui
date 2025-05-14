@@ -32,15 +32,23 @@
                 <td scope="col">{{ $comprovante->atividade }}</td>
                 <td scope="col">{{ $comprovante->horas }}</td>
                 <td>
-                    <form
-                        action="{{ route('comprovantes.destroy', $comprovante->id) }}"
-                        method="POST"
-                        onsubmit="return confirm('Tem certeza que deseja excluir este comprovante?');"
-                    >
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Excluir</button>
-                    </form>
+                    <div class="d-flex gap-3 justify-content-end">
+                        <form
+                            action="{{ route('comprovantes.edit', $comprovante->id) }}"
+                            method="GET"
+                        >
+                            <button type="submit" class="btn btn-warning text-white">Atualizar</button>
+                        </form>
+                        <form
+                            action="{{ route('comprovantes.destroy', $comprovante->id) }}"
+                            method="POST"
+                            onsubmit="return confirm('Tem certeza que deseja excluir este comprovante?');"
+                        >
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Excluir</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
         @endforeach

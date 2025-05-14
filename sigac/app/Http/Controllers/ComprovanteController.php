@@ -71,12 +71,32 @@ class ComprovanteController extends Controller
 
     public function edit(string $id)
     {
-        //
+        return view('comprovantes.edit')->with(['comprovante' => Comprovante::find($id), 'categorias' => Categoria::all(), 'alunos' => Aluno::all()]);
     }
 
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate($this->validationRules, $this->customMessages);
+
+        $categoria = Categoria::find($request->categoria_id);
+    
+        if ($request->horas > $categoria->maximo_horas) {
+            return redirect()->back()
+                ->withErrors(['horas' => 'A quantidade de horas excede o máximo permitido para esta categoria (' . $categoria->maximo_horas . 'h).'])
+                ->withInput();
+        }
+
+        $comprovante = Comprovante::find($id);
+
+        if ($comprovante) {
+            $comprovante->horas = $request->horas;
+            $comprovante->atividade = $request->atividade;
+            $comprovante->categoria_id = $request->categoria_id;
+            $comprovante->aluno_id = $request->aluno_id;
+
+            $comprovante->save();
+            return redirect()->route('comprovantes.index')->with(['success'=>'Comprovante '.$comprovante->id.' atualizado com sucesso']);
+        }
     }
 
     public function destroy(string $id)
