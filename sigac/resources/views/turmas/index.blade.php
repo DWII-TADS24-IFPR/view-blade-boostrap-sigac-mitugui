@@ -30,6 +30,12 @@
                 <td>
                     <div class="d-flex gap-3 justify-content-end">
                         <form
+                            action="{{ route('turmas.show', $turma->id) }}"
+                            method="GET"
+                        >
+                            <button type="submit" class="btn btn-light">Ver</i></button>
+                        </form>
+                        <form
                             action="{{ route('turmas.edit', $turma->id) }}"
                             method="GET"
                         >

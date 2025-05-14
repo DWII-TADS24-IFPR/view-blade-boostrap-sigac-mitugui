@@ -45,7 +45,9 @@ class TurmaController extends Controller
 
     public function show(string $id)
     {
-        //
+        $turma = Turma::find($id);
+        $turma_curso = Curso::find($turma->curso_id);
+        return view('turmas.show')->with(['turma' => $turma, 'turma_curso' => $turma_curso]);
     }
 
     public function edit(string $id)
