@@ -10,7 +10,7 @@ class Categoria extends Model
     use HasFactory;
 
     protected $table = 'categorias';
-    protected $fillable = ['nome', 'maximo_horas, curso_id'];
+    protected $fillable = ['nome', 'maximo_horas', 'curso_id'];
 
     public function curso() {
         return $this->belongsTo(Curso::class);
