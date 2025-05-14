@@ -34,6 +34,12 @@
                 <td>
                     <div class="d-flex gap-3 justify-content-end">
                         <form
+                            action="{{ route('documentos.show', $documento->id) }}"
+                            method="GET"
+                        >
+                            <button type="submit" class="btn btn-light">Ver</i></button>
+                        </form>
+                        <form
                             action="{{ route('documentos.edit', $documento->id) }}"
                             method="GET"
                         >

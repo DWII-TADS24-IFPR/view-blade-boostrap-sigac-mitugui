@@ -74,7 +74,8 @@ class DocumentoController extends Controller
 
     public function show(string $id)
     {
-        //
+        $documento = Documento::find($id);
+        return view('documentos.show')->with(['documento' => $documento]);
     }
 
     public function edit(string $id)
