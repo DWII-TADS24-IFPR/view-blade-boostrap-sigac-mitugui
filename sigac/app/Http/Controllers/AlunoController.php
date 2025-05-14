@@ -33,6 +33,28 @@ class AlunoController extends Controller
         'turma_id.required' => 'A turma é obrigatória.',
         'turma_id.exists' => 'A turma selecionada é inválida.',
     ];     
+    protected $updateValidationRules = [
+        'nome' => 'required|string|max:255',
+        'cpf' => 'required|string|size:14',
+        'email' => 'required|email',
+        'senha' => 'required|string|min:6',
+        'curso_id' => 'required|exists:cursos,id',
+        'turma_id' => 'required|exists:turmas,id',
+    ];
+
+    protected $updateCustomMessages = [
+        'nome.required' => 'O nome é obrigatório.',
+        'cpf.required' => 'O CPF é obrigatório.',
+        'cpf.size' => 'O CPF deve conter exatamente 11 números.',
+        'email.required' => 'O e-mail é obrigatório.',
+        'email.email' => 'O e-mail deve ser válido.',
+        'senha.required' => 'A senha é obrigatória.',
+        'senha.min' => 'A senha deve ter pelo menos :min caracteres.',
+        'curso_id.required' => 'O curso é obrigatório.',
+        'curso_id.exists' => 'O curso selecionado é inválido.',
+        'turma_id.required' => 'A turma é obrigatória.',
+        'turma_id.exists' => 'A turma selecionada é inválida.',
+    ];     
     
     public function index()
     {
@@ -67,12 +89,26 @@ class AlunoController extends Controller
 
     public function edit(string $id)
     {
-        //
+        return view('alunos.edit')->with(['aluno' => Aluno::find($id), 'cursos' => Curso::all(), 'turmas' => Turma::all()]);
     }
 
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate($this->updateValidationRules, $this->updateCustomMessages);
+        
+        $aluno = Aluno::find($id);
+
+        if ($aluno) {
+            $aluno->nome = $request->nome;
+            $aluno->cpf = $request->cpf;
+            $aluno->email = $request->email;
+            $aluno->senha = $request->senha;
+            $aluno->curso_id = $request->curso_id;
+            $aluno->turma_id = $request->turma_id;
+
+            $aluno->save();
+            return redirect()->route('alunos.index')->with(['success'=>'Aluno '.$aluno->id.' atualizado com sucesso']);
+        }
     }
 
     public function destroy(string $id)

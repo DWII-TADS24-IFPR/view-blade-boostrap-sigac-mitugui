@@ -28,15 +28,23 @@
                 <td scope="col">{{ $aluno->id }}</td>
                 <td scope="col">{{ $aluno->nome }}</td>
                 <td>
-                    <form
-                        action="{{ route('alunos.destroy', $aluno->id) }}"
-                        method="POST"
-                        onsubmit="return confirm('Tem certeza que deseja excluir este aluno?');"
-                    >
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Excluir</button>
-                    </form>
+                    <div class="d-flex gap-3 justify-content-end">
+                        <form
+                            action="{{ route('alunos.edit', $aluno->id) }}"
+                            method="GET"
+                        >
+                            <button type="submit" class="btn btn-warning text-white">Atualizar</button>
+                        </form>
+                        <form
+                            action="{{ route('alunos.destroy', $aluno->id) }}"
+                            method="POST"
+                            onsubmit="return confirm('Tem certeza que deseja excluir este aluno?');"
+                        >
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Excluir</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
         @endforeach
