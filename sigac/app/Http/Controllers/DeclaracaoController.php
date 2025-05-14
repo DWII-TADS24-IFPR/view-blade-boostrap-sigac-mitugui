@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class DeclaracaoController extends Controller
 {
     protected $validationRules = [
-        'hash' => 'required|string|max:255|unique:declaracoes,hash',
+        'hash' => 'required|string|max:255',
         'data' => 'required|date_format:Y-m-d',
         'aluno_id' => 'required|exists:alunos,id',
         'comprovante_id' => 'required|exists:comprovantes,id',
@@ -20,7 +20,6 @@ class DeclaracaoController extends Controller
         'hash.required' => 'O campo hash é obrigatório.',
         'hash.string' => 'O hash deve ser um texto válido.',
         'hash.max' => 'O hash deve ter no máximo 255 caracteres.',
-        'hash.unique' => 'Este hash já foi utilizado em outra declaração.',
     
         'data.required' => 'A data é obrigatória.',
         'data.date_format' => 'A data deve estar no formato válido (DD-MM-YYYY).',
@@ -30,6 +29,14 @@ class DeclaracaoController extends Controller
     
         'comprovante_id.required' => 'O comprovante é obrigatório.',
         'comprovante_id.exists' => 'O comprovante selecionado não existe.',
+    ];
+
+    protected $uniqueHashValidationRules = [
+        'hash' => 'unique:declaracoes,hash'
+    ];
+
+    protected $uniqueHashCustomMessage = [
+        'hash.unique' => 'Este hash já foi utilizado em outra declaração.'
     ];
 
     public function index()
@@ -44,6 +51,7 @@ class DeclaracaoController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate($this->uniqueHashValidationRules, $this->uniqueHashCustomMessage);
         $request->validate($this->validationRules, $this->customMessages);
 
         Declaracao::create([
@@ -63,12 +71,24 @@ class DeclaracaoController extends Controller
 
     public function edit(string $id)
     {
-        //
+        return view('declaracoes.edit')->with(['declaracao' => Declaracao::find($id), 'comprovantes' => Comprovante::all(), 'alunos' => Aluno::all()]);
     }
 
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate($this->validationRules, $this->customMessages);
+
+        $declaracao = Declaracao::find($id);
+
+        if ($declaracao) {
+            $declaracao->hash = $request->hash;
+            $declaracao->data = $request->data;
+            $declaracao->aluno_id = $request->aluno_id;
+            $declaracao->comprovante_id = $request->comprovante_id;
+
+            $declaracao->save();
+            return redirect()->route('declaracoes.index')->with(['success'=>'Declaração '.$declaracao->id.' atualizada com sucesso']);
+        }
     }
 
     public function destroy(string $id)

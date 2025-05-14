@@ -32,15 +32,23 @@
                 <td scope="col">{{ $declaracao->data }}</td>
                 <td scope="col">{{ $declaracao->aluno->nome }}</td>
                 <td>
-                    <form
-                        action="{{ route('declaracoes.destroy', $declaracao->id) }}"
-                        method="POST"
-                        onsubmit="return confirm('Tem certeza que deseja excluir esta declaração?');"
-                    >
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Excluir</button>
-                    </form>
+                    <div class="d-flex gap-3 justify-content-end">
+                        <form
+                            action="{{ route('declaracoes.edit', $declaracao->id) }}"
+                            method="GET"
+                        >
+                            <button type="submit" class="btn btn-warning text-white">Atualizar</button>
+                        </form>
+                        <form
+                            action="{{ route('declaracoes.destroy', $declaracao->id) }}"
+                            method="POST"
+                            onsubmit="return confirm('Tem certeza que deseja excluir esta declaração?');"
+                        >
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Excluir</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
         @endforeach
