@@ -46,6 +46,14 @@ class ComprovanteController extends Controller
     {
         $request->validate($this->validationRules, $this->customMessages);
 
+        $categoria = Categoria::find($request->categoria_id);
+    
+        if ($request->horas > $categoria->maximo_horas) {
+            return redirect()->back()
+                ->withErrors(['horas' => 'A quantidade de horas excede o máximo permitido para esta categoria (' . $categoria->maximo_horas . 'h).'])
+                ->withInput();
+        }
+
         Comprovante::create([
             'horas' => $request->horas,
             'atividade' => $request->atividade,
