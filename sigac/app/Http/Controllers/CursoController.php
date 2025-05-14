@@ -53,7 +53,9 @@ class CursoController extends Controller
 
     public function show(string $id)
     {
-        //
+        $curso = Curso::find($id);
+        $curso_nivel = Nivel::find($curso->nivel_id);
+        return view('cursos.show')->with(['curso' => $curso, 'curso_nivel' => $curso_nivel]);
     }
 
     public function edit(string $id)
