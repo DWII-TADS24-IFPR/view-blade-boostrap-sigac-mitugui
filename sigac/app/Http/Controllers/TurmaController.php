@@ -50,12 +50,22 @@ class TurmaController extends Controller
 
     public function edit(string $id)
     {
-        //
+        return view('turmas.edit')->with(['turma' => Turma::find($id), 'cursos' => Curso::all()]);
     }
 
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate($this->validationRules, $this->customMessages);
+        
+        $turma = Turma::find($id);
+
+        if ($turma) {
+            $turma->ano = $request->ano;
+            $turma->curso_id = $request->curso_id;
+
+            $turma->save();
+            return redirect()->route('turmas.index')->with(['success'=>'Turma '.$turma->id.' atualizada com sucesso']);
+        }
     }
 
     public function destroy(string $id)
