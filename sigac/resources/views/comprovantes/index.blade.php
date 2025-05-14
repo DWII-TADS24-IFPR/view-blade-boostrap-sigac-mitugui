@@ -21,6 +21,7 @@
             <th scope="col">ALUNO</th>
             <th scope="col">ATIVIDADE</th>
             <th scope="col">HORAS</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -30,6 +31,17 @@
                 <td scope="col">{{ $comprovante->aluno->nome }}</td>
                 <td scope="col">{{ $comprovante->atividade }}</td>
                 <td scope="col">{{ $comprovante->horas }}</td>
+                <td>
+                    <form
+                        action="{{ route('comprovantes.destroy', $comprovante->id) }}"
+                        method="POST"
+                        onsubmit="return confirm('Tem certeza que deseja excluir este comprovante?');"
+                    >
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Excluir</button>
+                    </form>
+                </td>
             </tr>
         @endforeach
     </tbody>

@@ -73,6 +73,12 @@ class ComprovanteController extends Controller
 
     public function destroy(string $id)
     {
-        //
+        $comprovante = Comprovante::find($id);
+
+        if ($comprovante) {
+            $comprovante->delete();
+        }
+
+        return redirect()->route('comprovantes.index')->with(['success'=>'Comprovante "'.$comprovante->atividade.'" deletado com sucesso']);
     }
 }
