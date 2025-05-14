@@ -28,15 +28,23 @@
                 <td scope="col">{{ $categoria->id }}</td>
                 <td scope="col">{{ $categoria->nome }}</td>
                 <td>
-                    <form
-                        action="{{ route('categorias.destroy', $categoria->id) }}"
-                        method="POST"
-                        onsubmit="return confirm('Tem certeza que deseja excluir esta categoria?');"
-                    >
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Excluir</button>
-                    </form>
+                    <div class="d-flex gap-3 justify-content-end">
+                        <form
+                            action="{{ route('categorias.edit', $categoria->id) }}"
+                            method="GET"
+                        >
+                            <button type="submit" class="btn btn-warning text-white">Atualizar</button>
+                        </form>
+                        <form
+                            action="{{ route('categorias.destroy', $categoria->id) }}"
+                            method="POST"
+                            onsubmit="return confirm('Tem certeza que deseja excluir esta categoria?');"
+                        >
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Excluir</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
         @endforeach

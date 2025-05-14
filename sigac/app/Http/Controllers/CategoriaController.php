@@ -57,12 +57,23 @@ class CategoriaController extends Controller
 
     public function edit(string $id)
     {
-        //
+        return view('categorias.edit')->with(['categoria' => Categoria::find($id), 'cursos' => Curso::all()]); 
     }
 
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate($this->validationRules, $this->customMessages);
+        
+        $categoria = Categoria::find($id);
+
+        if ($categoria) {
+            $categoria->nome = $request->nome;
+            $categoria->maximo_horas = $request->maximo_horas;
+            $categoria->curso_id = $request->curso_id;
+
+            $categoria->save();
+            return redirect()->route('categorias.index')->with(['success'=>'Categoria '.$categoria->id.' atualizada com sucesso']);
+        }
     }
 
     public function destroy(string $id)
