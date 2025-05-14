@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\NivelController;
+use App\Http\Controllers\TurmaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,3 +22,4 @@ Route::get('/', function () {
 
 Route::resource('/cursos', CursoController::class);
 Route::resource('/niveis', NivelController::class);
+Route::resource('/turmas', TurmaController::class);
