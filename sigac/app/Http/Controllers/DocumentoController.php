@@ -89,6 +89,12 @@ class DocumentoController extends Controller
 
     public function destroy(string $id)
     {
-        //
+        $documento = Documento::find($id);
+
+        if ($documento) {
+            $documento->delete();
+        }
+
+        return redirect()->route('documentos.index')->with(['success'=>'Documento '.$documento->id.' deletado com sucesso']);
     }
 }
