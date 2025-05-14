@@ -69,7 +69,7 @@ class DocumentoController extends Controller
             'categoria_id' => $request->categoria_id
         ]);
 
-        return redirect()->route('declaracoes.index')->with(['success'=>'Declaração criada com sucesso!']);
+        return redirect()->route('documentos.index')->with(['success'=>'Documento criado com sucesso!']);
     }
 
     public function show(string $id)
@@ -79,12 +79,27 @@ class DocumentoController extends Controller
 
     public function edit(string $id)
     {
-        //
+        return view('documentos.edit')->with(['documento' => Documento::find($id), 'categorias' => Categoria::all()]);
     }
 
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate($this->validationRules, $this->customMessages);
+
+        $documento = Documento::find($id);
+
+        if ($documento) {
+            $documento->url = $request->url;
+            $documento->descricao = $request->descricao;
+            $documento->horas_in = $request->horas_in;
+            $documento->status = $request->status;
+            $documento->comentario = $request->comentario;
+            $documento->horas_out = $request->horas_out;
+            $documento->categoria_id = $request->categoria_id;
+
+            $documento->save();
+            return redirect()->route('documentos.index')->with(['success'=>'Documento '.$documento->id.' atualizado com sucesso']);
+        }
     }
 
     public function destroy(string $id)

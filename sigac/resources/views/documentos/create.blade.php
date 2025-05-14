@@ -28,7 +28,12 @@
         <input type="number" class="form-control date" id="horas_in" name="horas_in" required>
 
         <label for="status" class="form-label">Status</label>
-        <input type="text" class="form-control date" id="status" name="status" required>
+        <select class="form-select" id="status" name="status" required>
+            <option value="">Selecione um status</option>
+            <option value="pendente">Pendente</option>
+            <option value="aprovado">Aprovado</option>
+            <option value="reprovado">Reprovado</option>
+        </select>
 
         <label for="comentario" class="form-label">Comentario</label>
         <input type="text" class="form-control date" id="comentario" name="comentario" required>

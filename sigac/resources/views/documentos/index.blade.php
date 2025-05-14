@@ -32,15 +32,23 @@
                 <td scope="col">{{ $documento->descricao }}</td>
                 <td scope="col">{{ $documento->status }}</td>
                 <td>
-                    <form
-                        action="{{ route('documentos.destroy', $documento->id) }}"
-                        method="POST"
-                        onsubmit="return confirm('Tem certeza que deseja excluir este documento?');"
-                    >
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Excluir</button>
-                    </form>
+                    <div class="d-flex gap-3 justify-content-end">
+                        <form
+                            action="{{ route('documentos.edit', $documento->id) }}"
+                            method="GET"
+                        >
+                            <button type="submit" class="btn btn-warning text-white">Atualizar</button>
+                        </form>
+                        <form
+                            action="{{ route('documentos.destroy', $documento->id) }}"
+                            method="POST"
+                            onsubmit="return confirm('Tem certeza que deseja excluir este documento?');"
+                        >
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Excluir</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
         @endforeach
