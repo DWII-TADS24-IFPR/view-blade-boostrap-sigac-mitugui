@@ -5,6 +5,14 @@
 @section('content')
 <h1>Documentos</h1>
 
+<button class="btn btn-primary" onclick="window.location.href='{{route('documentos.create')}}'">Adicionar</button>
+
+@if(session('success'))
+    <div id="alert-pop-up" class="alert alert-success my-3">
+        {{ session('success') }}
+    </div>
+@endif
+
 @if($documentos->isNotEmpty())
 <table class="table table-white">
     <thead>
