@@ -66,7 +66,8 @@ class ComprovanteController extends Controller
 
     public function show(string $id)
     {
-        //
+        $comprovante = Comprovante::find($id);
+        return view('comprovantes.show')->with(['comprovante' => $comprovante, 'comprovante_categoria' => $comprovante->categoria, 'comprovante_aluno' => $comprovante->aluno]);
     }
 
     public function edit(string $id)

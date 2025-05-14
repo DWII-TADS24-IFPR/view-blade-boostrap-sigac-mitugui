@@ -34,6 +34,12 @@
                 <td>
                     <div class="d-flex gap-3 justify-content-end">
                         <form
+                            action="{{ route('comprovantes.show', $comprovante->id) }}"
+                            method="GET"
+                        >
+                            <button type="submit" class="btn btn-light">Ver</i></button>
+                        </form>
+                        <form
                             action="{{ route('comprovantes.edit', $comprovante->id) }}"
                             method="GET"
                         >
