@@ -19,6 +19,7 @@
         <tr>
             <th scope="col">ID</th>
             <th scope="col">NOME</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -26,6 +27,17 @@
             <tr>
                 <td scope="col">{{ $aluno->id }}</td>
                 <td scope="col">{{ $aluno->nome }}</td>
+                <td>
+                    <form
+                        action="{{ route('alunos.destroy', $aluno->id) }}"
+                        method="POST"
+                        onsubmit="return confirm('Tem certeza que deseja excluir este aluno?');"
+                    >
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Excluir</button>
+                    </form>
+                </td>
             </tr>
         @endforeach
     </tbody>

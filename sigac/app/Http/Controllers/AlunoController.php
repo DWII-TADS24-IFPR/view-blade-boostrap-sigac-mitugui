@@ -57,7 +57,7 @@ class AlunoController extends Controller
             'turma_id' => $request->turma_id,
         ]);
 
-        return redirect()->route('alunos.index')->with(['success'=>'Aluno (a) '.$request->nome.' criado(a) com sucesso!']);
+        return redirect()->route('alunos.index')->with(['success'=>'Aluno (a) '.$request->nome.' criado (a) com sucesso!']);
     }
 
     public function show(string $id)
@@ -77,6 +77,12 @@ class AlunoController extends Controller
 
     public function destroy(string $id)
     {
-        //
+        $aluno = Aluno::find($id);
+
+        if ($aluno) {
+            $aluno->delete();
+        }
+
+        return redirect()->route('alunos.index')->with(['success'=>'Aluno (a) '.$aluno->nome.' deletado (a) com sucesso']);
     }
 }
