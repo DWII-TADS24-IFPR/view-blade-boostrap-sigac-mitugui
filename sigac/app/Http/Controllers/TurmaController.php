@@ -2,11 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Curso;
 use App\Models\Turma;
 use Illuminate\Http\Request;
 
 class TurmaController extends Controller
 {
+    protected $validationRules = [
+        'ano' => 'required|digits:4|integer',
+        'curso_id' => 'required|exists:cursos,id',
+    ];
+    
+    protected $customMessages = [
+        'ano.required' => 'O ano é obrigatório.',
+        'ano.digits' => 'O ano deve conter 4 números.',
+        'ano.integer' => 'O ano deve ser um número inteiro.',
+        'curso_id.required' => 'O curso é obrigatório.',
+        'curso_id.exists' => 'O curso selecionado é inválido.',
+    ];
+
     public function index()
     {
         return view('turmas.index')->with(['turmas' => Turma::all()]);
@@ -14,12 +28,19 @@ class TurmaController extends Controller
 
     public function create()
     {
-        //
+        return view('turmas.create')->with(['cursos' => Curso::all()]);
     }
 
     public function store(Request $request)
     {
-        //
+        $request->validate($this->validationRules, $this->customMessages);
+
+        Turma::create([
+            'ano' => $request->ano,
+            'curso_id' => $request->curso_id,
+        ]);
+
+        return redirect()->route('turmas.index')->with(['success'=>'Turma '.$request->ano.' criada com sucesso!']);
     }
 
     public function show(string $id)
