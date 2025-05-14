@@ -60,6 +60,12 @@ class TurmaController extends Controller
 
     public function destroy(string $id)
     {
-        //
+        $turma = Turma::find($id);
+
+        if ($turma) {
+            $turma->delete();
+        }
+
+        return redirect()->route('turmas.index')->with(['success'=>'Turma '.$turma->ano.' deletada com sucesso']);
     }
 }
