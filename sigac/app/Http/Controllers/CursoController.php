@@ -58,12 +58,24 @@ class CursoController extends Controller
 
     public function edit(string $id)
     {
-        //
+        return view('cursos.edit')->with(['curso' => Curso::find($id), 'niveis' => Nivel::all()]);
     }
 
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate($this->validationRules, $this->customMessages);
+        
+        $curso = Curso::find($id);
+
+        if ($curso) {
+            $curso->nome = $request->nome;
+            $curso->sigla = $request->sigla;
+            $curso->total_horas = $request->total_horas;
+            $curso->nivel_id = $request->nivel_id;
+
+            $curso->save();
+            return redirect()->route('cursos.index')->with(['success'=>'Curso '.$curso->id.' atualizado com sucesso']);
+        }
     }
 
     public function destroy(string $id)

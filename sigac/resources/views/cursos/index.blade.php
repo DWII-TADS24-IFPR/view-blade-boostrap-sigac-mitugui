@@ -30,15 +30,23 @@
                 <td scope="col">{{ $curso->nome }}</td>
                 <td scope="col">{{ $curso->total_horas }}</td>
                 <td>
-                    <form
-                        action="{{ route('cursos.destroy', $curso->id) }}"
-                        method="POST"
-                        onsubmit="return confirm('Tem certeza que deseja excluir este curso?');"
-                    >
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Excluir</button>
-                    </form>
+                    <div class="d-flex gap-3 justify-content-end">
+                        <form
+                            action="{{ route('cursos.edit', $curso->id) }}"
+                            method="GET"
+                        >
+                            <button type="submit" class="btn btn-warning text-white">Atualizar</button>
+                        </form>
+                        <form
+                            action="{{ route('cursos.destroy', $curso->id) }}"
+                            method="POST"
+                            onsubmit="return confirm('Tem certeza que deseja excluir este curso?');"
+                        >
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Excluir</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
         @endforeach
